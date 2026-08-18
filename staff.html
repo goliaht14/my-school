@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โรงเรียนวัดคลองปูน</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4EA8DE;
+            --primary-soft: #E0F2FE;
+            --secondary: #FFB703;
+            --secondary-soft: #FEF3C7;
+            --accent: #FF70A6;
+            --accent-soft: #FCE7F3;
+            --bg-light: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-dark: #2B2D42;
+            --text-muted: #6C757D;
+            --radius-organic: 24px 12px 24px 12px;
+            --radius-card: 20px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Header & Navigation --- */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1.5rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50% 40% 60% 50% / 50% 60% 40% 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .school-name {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+        }
+
+            .school-name h6 {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s;
+            padding: 0.5rem 0.8rem;
+            border-radius: 12px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background-color: var(--primary-soft);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 4rem 1.5rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .hero-card-img {
+            width: 100%;
+            height: 320px;
+            background: var(--primary-soft);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        /* --- Global Layout Helper --- */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+        }
+
+        /* --- Grid & Cards --- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .card-tag {
+            display: inline-block;
+            padding: 0.25rem 0.8rem;
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Quick Links Section --- */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .quick-btn {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--radius-organic);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .quick-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        .quick-btn-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--secondary-soft);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* --- Calendar & Filter --- */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            border: none;
+            padding: 0.6rem 1.2rem;
+            background: #EAEAEA;
+            color: var(--text-dark);
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .event-card {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .event-date {
+            background: var(--secondary-soft);
+            color: var(--secondary);
+            min-width: 65px;
+            height: 65px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .event-date .day { font-size: 1.2rem; }
+        .event-date .month { font-size: 0.75rem; text-transform: uppercase; }
+
+        /* --- Personnel / Staff Section Styles --- */
+        .director-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--primary-soft) 100%);
+            border: 2px solid var(--primary-soft);
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 15px 35px rgba(78, 168, 222, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .director-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 183, 3, 0.2);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .director-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: #FFFFFF;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+            box-shadow: var(--shadow);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .director-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .director-info {
+            z-index: 1;
+        }
+
+        .director-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: #FFFFFF;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .director-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .director-title {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .director-quote {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-left: 3px solid var(--secondary);
+            padding-left: 10px;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .staff-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .staff-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.2rem;
+            border-radius: 50%;
+            background: var(--primary-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+            overflow: hidden;
+            border: 3px solid #FFFFFF;
+        }
+
+        .staff-avatar.kindergarten {
+            background: var(--secondary-soft);
+            color: var(--secondary);
+        }
+
+        .staff-avatar.support {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .staff-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .staff-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .staff-position {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .staff-role-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            background: var(--bg-light);
+            color: var(--text-muted);
+            padding: 0.2rem 0.7rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .staff-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            background: var(--primary-soft);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .staff-contact-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* --- Video Section --- */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #000;
+        }
+
+        .video-wrapper iframe, .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2D3748;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* --- Map Section --- */
+        .map-wrapper {
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 350px;
+            background: #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: #FFFFFF;
+            border-top: 1px solid #E2E8F0;
+            padding: 3rem 1.5rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .footer-col p, .footer-col li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            list-style: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--primary-soft);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #EDF2F7;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            .mobile-toggle { display: block; }
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 1.5rem;
+                gap: 0.5rem;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                display: none;
+            }
+            .nav-menu.active { display: flex; }
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-card-img { height: 220px; }
+            .section { padding: 2.5rem 1rem; }
+            .director-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem 1.5rem;
+            }
+            .director-quote {
+                border-left: none;
+                border-top: 2px solid var(--secondary);
+                padding-left: 0;
+                padding-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+        <div class="logo-area">
+                <div class="logo-icon">
+                    <img src="logo-image.png" alt="โลโก้โรงเรียน">
+                </div>
+                <div class="school-name"> 
+                    <a href="index.html">โรงเรียนวัดคลองปูน</a>
+                    <hr>
+                    <h6>สำนักงานเขตพื้นที่การศึกษาประถมศึกษาระยอง เขต 2</h6>
+                </div>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#about" class="nav-link">เกี่ยวกับโรงเรียน</a></li>
+                <li><a href="#news" class="nav-link">ข่าวประชาสัมพันธ์</a></li>
+                <li><a href="#events" class="nav-link">ปฏิทินกิจกรรม</a></li>
+                <li><a href="#staff" class="nav-link">บุคลากร</a></li>
+                <li><a href="#contact" class="nav-link">ติดต่อเรา</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Personnel / Staff Section (คณะบุคลากร) -->
+    <section class="section" id="staff">
+        <div class="section-header">
+            <h2 class="section-title">คณะบุคลากรทางการศึกษา</h2>
+        </div>
+
+        <!-- Executive Highlight Card -->
+        <div class="director-card">
+            <div class="director-avatar">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="director-info">
+                <span class="director-badge"><i class="fa-solid fa-star"></i> ผู้บริหารสถานศึกษา</span>
+                <h3 class="director-name">ผู้อำนวยการโรงเรียนวัดคลองปูน</h3>
+                <div class="director-title">ผู้อำนวยการชำนาญการพิเศษ</div>
+                <p class="director-quote">"มุ่งเน้นการจัดการเรียนรู้อย่างมีความสุข ปลูกฝังคุณธรรม นำความรู้ สู่พัฒนาการยั่งยืน"</p>
+            </div>
+        </div>
+
+        <!-- Staff Category Filter Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterStaff('all', this)">ทั้งหมด</button>
+            <button class="filter-btn" onclick="filterStaff('executive', this)">ฝ่ายบริหาร</button>
+            <button class="filter-btn" onclick="filterStaff('kindergarten', this)">ครูสายอนุบาล</button>
+            <button class="filter-btn" onclick="filterStaff('primary', this)">ครูสายประถม</button>
+            <button class="filter-btn" onclick="filterStaff('support', this)">สายสนับสนุน</button>
+        </div>
+
+        <!-- Staff Grid -->
+        <div class="staff-grid" id="staff-grid">
+
+            <!-- Executive Item: รองผู้อำนวยการ -->
+            <div class="staff-card staff-item executive">
+                <div class="staff-avatar executive">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <h4 class="staff-name">คุณครูวิชัย มั่นคง</h4>
+                <div class="staff-position">รองผู้อำนวยการโรงเรียน</div>
+                <span class="staff-role-tag">ฝ่ายบริหาร</span>
+                <a href="mailto:wichai@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อผู้บริหาร</a>
+            </div>
+
+            <!-- Staff Item 1 -->
+            <div class="staff-card staff-item kindergarten">
+                <div class="staff-avatar kindergarten">
+                    <i class="fa-solid fa-user-nurse"></i>
+                </div>
+                <h4 class="staff-name">คุณครูสมศรี ใจดี</h4>
+                <div class="staff-position">ครูประจำชั้นอนุบาล 2</div>
+                <span class="staff-role-tag">สายชั้นอนุบาล</span>
+                <a href="mailto:somsri@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อครู</a>
+            </div>
+
+            <!-- Staff Item 2 -->
+            <div class="staff-card staff-item kindergarten">
+                <div class="staff-avatar kindergarten">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <h4 class="staff-name">คุณครูวิภา รักษ์เด็ก</h4>
+                <div class="staff-position">ครูประจำชั้นอนุบาล 3</div>
+                <span class="staff-role-tag">สายชั้นอนุบาล</span>
+                <a href="mailto:wipha@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อครู</a>
+            </div>
+
+            <!-- Staff Item 3 -->
+            <div class="staff-card staff-item primary">
+                <div class="staff-avatar">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <h4 class="staff-name">คุณครูสมศักดิ์ เก่งวิทย์</h4>
+                <div class="staff-position">ครูประจำชั้น ป.3 / กลุ่มสาระวิทยาศาสตร์</div>
+                <span class="staff-role-tag">สายชั้นประถมศึกษา</span>
+                <a href="mailto:somsak@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อครู</a>
+            </div>
+
+            <!-- Staff Item 4 -->
+            <div class="staff-card staff-item primary">
+                <div class="staff-avatar">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <h4 class="staff-name">คุณครูนภา คิดคำนวณ</h4>
+                <div class="staff-position">ครูประจำชั้น ป.5 / กลุ่มสาระคณิตศาสตร์</div>
+                <span class="staff-role-tag">สายชั้นประถมศึกษา</span>
+                <a href="mailto:napha@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อครู</a>
+            </div>
+
+            <!-- Staff Item 5 -->
+            <div class="staff-card staff-item primary">
+                <div class="staff-avatar">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h4 class="staff-name">คุณครูอนันต์ ภาษาไทย</h4>
+                <div class="staff-position">ครูประจำชั้น ป.6 / กลุ่มสาระภาษาไทย</div>
+                <span class="staff-role-tag">สายชั้นประถมศึกษา</span>
+                <a href="mailto:anan@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อครู</a>
+            </div>
+
+            <!-- Staff Item 6 -->
+            <div class="staff-card staff-item support">
+                <div class="staff-avatar support">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4 class="staff-name">คุณกิตติศักดิ์ มีพร้อม</h4>
+                <div class="staff-position">เจ้าหน้าที่สารสนเทศ & การงาน</div>
+                <span class="staff-role-tag">บุคลากรสนับสนุน</span>
+                <a href="mailto:support@khlongpun.ac.th" class="staff-contact-btn"><i class="fa-regular fa-envelope"></i> ติดต่อเจ้าหน้าที่</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 โรงเรียนวัดคลองปูน. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Event Calendar Filter Functionality
+        function filterEvents(category, btnElem) {
+            const container = btnElem.parentElement;
+            const buttons = container.querySelectorAll('.filter-btn');
+            const items = document.querySelectorAll('.event-item');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElem.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Personnel / Staff Filter Functionality
+        function filterStaff(category, btnElem) {
+            const container = btnElem.parentElement;
+            const buttons = container.querySelectorAll('.filter-btn');
+            const items = document.querySelectorAll('.staff-item');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElem.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
